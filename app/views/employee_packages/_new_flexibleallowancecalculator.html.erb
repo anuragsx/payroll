@@ -6,7 +6,7 @@
     <%= fa.hidden_field :salary_head_id, :value => c.salary_head.id%>
     <%= fa.hidden_field :category_type, :value => 'Employee'%>
     <%= fa.hidden_field :category_id, :value => @employee.id %>    
-    <%= fa.labelled_text_field "#{c.salary_head.name}", :value %>
+    <%= fa.text_field "#{c.salary_head.name}", :value %>
     <%= fa.labelled_select 'Head Type', :head_type, FlexibleAllowance::HEAD_TYPE %>
   <%end%>
 <%end%>

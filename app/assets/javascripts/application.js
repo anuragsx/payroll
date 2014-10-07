@@ -77,6 +77,7 @@ jQuery.fn.tableKeyStrokes = function(options){
 jQuery(document).ready(
   function()
   {
+    alert('hi');
     jQuery('form').highlight();
     jQuery('.flash-msg p span.close a').click(function() {
       jQuery(this).parent().parent().parent().fadeOut('slow');

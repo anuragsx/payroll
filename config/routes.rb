@@ -1,4 +1,5 @@
 Payrolls::Application.routes.draw do
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -110,6 +111,8 @@ Payrolls::Application.routes.draw do
 
   root :to => "user_sessions#index"
 
+  #root :to => "home#index"
+
   resources :users do
     member do
       post 'swap_user_status'
@@ -118,6 +121,8 @@ Payrolls::Application.routes.draw do
   end
 
   resource :user_session
+
+  match 'logout' => "user_sessions#destroy", :as => :logout
 
   resources :expense_claims do
     collection do
@@ -157,34 +162,48 @@ Payrolls::Application.routes.draw do
         post 'bulk_update'
       end
     end
-  end
-
-    resource :tax_details
-    resources :taxes
     resources :employee_packages do
       member do
         get 'ctc'
       end
     end
-    resources :investments
-    resources :other_incomes
+
     resources :esis
+
     resources :pfs do
       member do
         get 'exit'
       end
     end
+
+    resource :tax_details
+    resources :incentives
     resources :labour_welfares, :only => [:index]
+
     resource :professional_tax do
       member do
         post 'deregister'
       end
     end
+
     resources :attendances
-    resources :incentives
     resources :ltas
-    resources :lta_claims
     resources :arrears
+  end
+
+
+    resources :taxes
+
+    resources :investments
+    resources :other_incomes
+
+
+
+
+
+
+    resources :lta_claims
+
 
   resource :company_leave do
     member do

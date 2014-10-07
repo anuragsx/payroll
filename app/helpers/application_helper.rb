@@ -32,7 +32,7 @@ module ApplicationHelper
   end
 
   def display_error_messages(error_for)
-    error_messages_for(error_for, :class => 'errors png_bg', :header_message => nil)
+    errors_for(error_for, :class => 'errors png_bg', :header_message => nil)
   end
 
   def activerecord_error_list(errors)
@@ -92,14 +92,14 @@ module ApplicationHelper
         'F'=> [new_feedback_path,'Feedback'] ,
         'U'=> [users_path,'Users'] ,
         'Shift+S'=> [company_path(@company),'Settings'] ,
-        'A'=> [edit_user_path(@current_user),'Accounts'] ,
+        'A'=> [edit_user_path(current_user),'Accounts'] ,
         'N'=> [new_employee_path,'New Employee'] ,
         'Shift+E'=> [esis_path,'ESI'] ,
         'Shift+P'=> [pfs_path,'PF'] ,
         'Shift+A'=> [advances_path,'Advances'] ,
         'Shift+T'=> [income_taxes_path,'TDS'] ,
         'Shift+L'=> [loans_path,'Loans'] ,
-        'Shift+B'=> [bonus_index_path,'Bonus'],
+        'Shift+B'=> [bonus_path,'Bonus'],
     }
   end
 
@@ -120,7 +120,7 @@ module ApplicationHelper
         {:path => arrears_path, :name => t('common.arrears'), :controller => "arrears"},
         {:path => insurances_path, :name => t('common.insurances'), :controller => "insurances"},
         {:path => loans_path, :name => t('common.loans'), :controller => "loans"},
-        {:path => bonus_index_path, :name => t('common.bonus'), :controller => "bonus"},
+        {:path => bonus_path, :name => t('common.bonus'), :controller => "bonus"},
         {:path => labour_welfares_path, :name => t('labour_welfare.self'), :controller => "labour_welfares"},
         {:path => gratuities_path, :name => t('gratuity.self'), :controller => "gratuities"},
         {:path => professional_taxes_path, :name => t('professional_tax.self'), :controller => "professional_taxes"}

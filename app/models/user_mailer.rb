@@ -1,11 +1,18 @@
 class UserMailer < ActionMailer::Base
-  
+  default :from => "notifications@example.com"
   def password_reset_instructions(user)
     setup_email(user, "Password Reset Instructions")
     body          :edit_reset_password_url =>
                     edit_reset_password_url(user.perishable_token, :subdomain => user.company.subdomain)
   end
 
+  def body(user)
+    {:activate_account_url => activate_accounts_url(:code => user.perishable_token,
+                                                    :subdomain => user.company.subdomain),
+     :username => user.login,
+     :token => user.perishable_token, :subdomain => user.company.subdomain}
+  end
+=begin
   def email_verification_instructions(user)
     setup_email(user, "Account Activation Instructions")
     body          :activate_account_url => activate_accounts_url(:code => user.perishable_token,
@@ -14,7 +21,22 @@ class UserMailer < ActionMailer::Base
                   :token => user.perishable_token, :subdomain => user.company.subdomain
 
   end
-
+=end
+  def email_verification_instructions(user)
+    load_settings
+    @user = user
+    subject_suffix = "Account Activation Instructions"
+    #@url  = "http://example.com/login"
+    mail(:to => user.email,
+         :subject => "[#{user.company_name}] #{subject_suffix}",
+         :template_path => 'notifications',
+         :template_name => 'another',
+         :activate_account_url => activate_accounts_url(:code => user.perishable_token,
+                                                        :subdomain => user.company.subdomain),
+         :username => user.login,
+         :token => user.perishable_token, :subdomain => user.company.subdomain)
+  end
+=begin
   def user_welcome(user)
     setup_email(user, "Welcome to #{user.company.name}")   
     body    :activate_account_url => activate_accounts_url(:code => user.perishable_token,
@@ -24,6 +46,21 @@ class UserMailer < ActionMailer::Base
             :login => user.login,
             :company => user.company.name,
             :token => user.perishable_token
+  end
+=end
+
+  def user_welcome(user)
+    #body = body(user)
+    setup_email(user, "Welcome to #{user.company.name}")
+    @user = user
+    mail(:to => user.email,
+         :subject => "[#{user.company_name}] #{subject_suffix}",
+         :template_path => 'notifications',
+         :template_name => 'another',
+         :activate_account_url => activate_accounts_url(:code => user.perishable_token),
+         :subdomain => user.company.subdomain,
+         :username => user.login,
+         :token => user.perishable_token)
   end
 
   def feedback_thanks(feedback)
@@ -35,6 +72,7 @@ class UserMailer < ActionMailer::Base
   end
   
   protected
+=begin
   def setup_email(user,subject_suffix)
     load_settings
     recipients   user.email
@@ -42,6 +80,16 @@ class UserMailer < ActionMailer::Base
     subject      "[#{user.company_name}] #{subject_suffix}"
     sent_on       Time.now
   end
+=end
+ def setup_email(user,subject_suffix)
+   load_settings
+   @user = user
+   #@url  = "http://example.com/login"
+   mail(:to => user.email,
+        :subject => "[#{user.company_name}] #{subject_suffix}",
+        :template_path => 'notifications',
+        :template_name => 'another')
+end
 
   def setup_admin_mail(company,subject_suffix)
     load_settings
@@ -53,7 +101,7 @@ class UserMailer < ActionMailer::Base
 
   def load_settings
     return true if Rails.env == "development"
-    options = YAML.load_file("#{RAILS_ROOT}/config/action_mailer.yml")[RAILS_ENV]["usermailer"]
+    options = YAML.load_file("#{Rails.root}/config/action_mailer.yml")[RAILS_ENV]["usermailer"]
     @@smtp_settings = {
       :address => options["address"],
       :port => options["port"],

@@ -53,7 +53,7 @@
           <td class="numeric head2"><%=h leave.extra_work_days %></td>
           <td class="numeric head3"><%= link_to(t('button.edit'),edit_employee_leafe_path(@employee,leave)) %></td>
         <% else %>
-          <% form_for(leave) do |f| %>
+          <%= form_for(leave) do |f| %>
             <td class="head1"><%= leave.created_at.to_s(:short_month_and_year) %></td>
             <%= render :partial=>'fields',:locals => {:leave => leave,:f => f} %>
             <td class="numeric head3"><%= f.submit(t('button.save')) %></td>

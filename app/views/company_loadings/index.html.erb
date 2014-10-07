@@ -19,10 +19,10 @@
   </tbody>
 </table>
 
-<% form_for(CompanyLoading.new(:company => @company)) do |f| %>
+<%= form_for(CompanyLoading.new(:company => @company)) do |f| %>
   <ul class="form">
-    <%= f.labelled_text_field(t('dearness_relief.loading_percent'),:loading_percent, :note => 'Loading percentage as per Govt. ruling e.g. 15%') %>
-    <%= f.labelled_text_field(t('common.effective_from'), :created_at, :class => 'datebalks') %>
+    <%= f.text_field(t('dearness_relief.loading_percent'),:loading_percent, :note => 'Loading percentage as per Govt. ruling e.g. 15%') %>
+    <%= f.text_field(t('common.effective_from'), :created_at, :class => 'datebalks') %>
   </ul>
   <p class="submit">
     <%= f.submit t('button.save'), :class => 'btn' %> or

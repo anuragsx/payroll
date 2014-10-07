@@ -6,17 +6,17 @@
   <%= link_to("Download Form 27A", tds_return_path(@tds_return, :format => :pdf)) %>
 <% end unless @tds_return.new_record? %>
 
-<% form_for(@tds_return) do |f| %>
+<%= form_for(@tds_return) do |f| %>
   <ul class="form">
     <%= display_error_messages('attendance') %>
-    <%= f.labelled_text_field t('tds_return.bsr_code'), :bsr_code %>
-    <%= f.labelled_text_field t('tds_return.cheque_number'), :cheque_ya_dd_no %>
-    <%= f.labelled_text_field t('tds_return.date_of_deduction'), :tax_deduction_date,:class => 'datebalks' %>
-    <%= f.labelled_text_field t('tds_return.tax_deposited_date'), :tax_deposited_date,:class => 'datebalks' %>
-    <%= f.labelled_text_field t('tds_return.transfer_voucher'), :challan_serial_no %>
-    <%= f.labelled_text_field t('tds_return.payment_made'), :payment_made %>
-    <%= f.labelled_text_field t('tds_return.interest'), :intrest_amount %>
-    <%= f.labelled_text_field t('tds_return.receipt_number'), :receipt_number %>
+    <%= f.text_field t('tds_return.bsr_code'), :bsr_code %>
+    <%= f.text_field t('tds_return.cheque_number'), :cheque_ya_dd_no %>
+    <%= f.text_field t('tds_return.date_of_deduction'), :tax_deduction_date,:class => 'datebalks' %>
+    <%= f.text_field t('tds_return.tax_deposited_date'), :tax_deposited_date,:class => 'datebalks' %>
+    <%= f.text_field t('tds_return.transfer_voucher'), :challan_serial_no %>
+    <%= f.text_field t('tds_return.payment_made'), :payment_made %>
+    <%= f.text_field t('tds_return.interest'), :intrest_amount %>
+    <%= f.text_field t('tds_return.receipt_number'), :receipt_number %>
   </ul>
   <%= f.hidden_field :start_date %>
   <table cellpadding="0" cellspacing="0" width="100%" class="list">
@@ -35,7 +35,7 @@
       </tr>
     </tfoot>
     <tbody>
-      <% f.fields_for :employee_tds_returns do |et| %>
+      <%= f.fields_for :employee_tds_returns do |et| %>
         <tr>
           <td class="head1">
             <%= et.object.employee.name %>

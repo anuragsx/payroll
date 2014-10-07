@@ -3,7 +3,7 @@
   	<div class="salary_sheet_actions">
         <%= salary_sheet_actions(salary_sheet) %>
       </div>
-    <% form_for(salary_sheet,:html => {:id => "sheet_form"}) do |f| %>
+    <%= form_for(salary_sheet,:html => {:id => "sheet_form"}) do |f| %>
       Month of <%= f.text_field :month_length,:size => 2 %> days
       <%= f.hidden_field(:run_date) %> <br/>
       <%= f.submit "Create for #{salary_sheet.run_date.to_s(:short_month_and_year)}",

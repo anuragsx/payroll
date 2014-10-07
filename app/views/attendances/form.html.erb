@@ -1,9 +1,9 @@
-<% form_for([@employee,@attendance]) do |f| %>
+<%= form_for([@employee,@attendance]) do |f| %>
   <%= display_error_messages('attendance') %>
   <ul class="form">
     <%= f.labelled_select('Attendance type',:attendance_type_id, AttendanceType.all.collect{|t|[t.name,t.id]}, { :include_blank => true }) %>
-    <%= f.labelled_text_field("TimeIn", :timein) %>
-    <%= f.labelled_text_field("TimeOut", :timeout) %>
+    <%= f.text_field("TimeIn", :timein) %>
+    <%= f.text_field("TimeOut", :timeout) %>
     <%= f.hidden_field :employee_id, :size => 5 %>
     <%= f.hidden_field :attendance_date, :size => 5 %>
   </ul>

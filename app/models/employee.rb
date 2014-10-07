@@ -1,7 +1,11 @@
 class Employee < ActiveRecord::Base
-
+  attr_accessible :bank, :name, :commencement_date, :department_id, :identification_number,
+                  :account_number, :bank_id, :address_attributes, :employee_detail_attributes, :email,
+                  :care_of, :date_of_birth, :sex
   EMPLOYEE_STATUS = [['Active'], ['Resigned'],['Suspended']]
-  extend ActiveSupport::Memoizable  
+  #extend ActiveSupport::Memoizable
+  require 'memoist'
+  extend Memoist
   include AASM
   belongs_to :company
   belongs_to :department

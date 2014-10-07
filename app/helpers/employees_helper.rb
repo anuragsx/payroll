@@ -24,7 +24,7 @@ module EmployeesHelper
   end
 
   def employee_setup(employee)
-    returning(employee) do |emp|
+    employee.tap do |emp|
       employee.build_employee_detail unless employee.employee_detail
       employee.build_address unless employee.address
     end
@@ -63,7 +63,7 @@ module EmployeesHelper
         {:path => employee_incentives_path(@employee), :name => t('common.incentives'), :controller => "incentives"},
         {:path => employee_insurances_path(@employee), :name => t('common.insurance'), :controller => "insurances"},
         {:path => employee_loans_path(@employee), :name => t('common.loans'), :controller => ["loans", "emi_overrides"], :group => "loans"},
-        {:path => employee_bonus_index_path(@employee), :name => t('common.bonus'), :controller => "bonus"},
+        {:path => employee_bonus_path(@employee), :name => t('common.bonus'), :controller => "bonus"},
         {:path => employee_labour_welfares_path(@employee), :name => t('labour_welfare.self'), :controller => "labour_welfares"},
         {:path => employee_professional_tax_path(@employee), :name => t('professional_tax.self'), :controller => "professional_taxes"},
         {:path => employee_attendances_path(@employee), :name => t('common.attendance'), :controller => "attendances"},
@@ -89,9 +89,9 @@ module EmployeesHelper
     employee_links
     content_tag(:ul,  :class => 'tabs') do
       (employee_header_defaults + employee_links).map do |entries|
-        content_tag(:li,link_to(entries[:name],entries[:path]),
+        content_tag(:li,link_to(entries[:name],entries[:path]).html_safe,
           :class => link_active?(entries[:controller].include?(params[:controller])))
-      end.join(" ")
+      end.join(" ").html_safe
     end
   end
 

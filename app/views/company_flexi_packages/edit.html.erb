@@ -1,10 +1,10 @@
 <% content_for(:page_header) do %>
   <h2>Edit Packages</h2>
 <%end%>
-<% form_for(@company,:url => company_flexi_package_path(@company),:html => {:method =>:put}) do |f| %>  
+<%= form_for(@company,:url => company_flexi_package_path(@company),:html => {:method =>:put}) do |f| %>
 
   <div id="company_flexi_packages">
-    <% f.fields_for :company_flexi_packages do |cf| %>
+    <%= f.fields_for :company_flexi_packages do |cf| %>
       <%# if (cf.object.id == @company.company_flexi_packages.scoped_by_salary_head_id(cf.object.salary_head_id).all(:order => :salary_head_id).first.id) %>
         <h2><%= cf.object.salary_head.name %></h2>
       <%#end%>

@@ -1,5 +1,5 @@
 class CompanyEsi < ActiveRecord::Base
-
+  attr_accessible :company
   belongs_to :company
   belongs_to :esi_type
 
@@ -7,7 +7,14 @@ class CompanyEsi < ActiveRecord::Base
 
   scope :for_company, lambda{|c|{:conditions => ["company_id = ?",c]}}
 
-  defaults :esi_type => EsiType.find_by_name("Shops Act"), :esi_number => "15/17494"
+  after_initialize :defaults
+
+  def defaults
+    self.esi_type = EsiType.find_by_name("Shops Act")
+    self.esi_number = "15/17494"
+  end
+
+  #defaults :esi_type => EsiType.find_by_name("Shops Act"), :esi_number => "15/17494"
   #after_create :activate_on_all_employees
   
   attr_accessor :gross, :effective_base

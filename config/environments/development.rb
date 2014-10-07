@@ -34,4 +34,6 @@ Payrolls::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.action_mailer.default_url_options = { :host => 'wisenutrition.payroll.local:3000' }
 end

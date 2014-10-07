@@ -7,7 +7,7 @@ class EmployeePackageHead < ActiveRecord::Base
   has_many :salary_slip_charges, :as => :reference
   
   validates :amount, :employee, :company, :presence => true
-  validates :amount, :greater_than_or_equal_to => 0, :numericality => { :only_integer => true }
+  validates :amount, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
 
   scope :for_company, lambda{|e|{:conditions => ["company_id = ?",e]}}
   scope :for_employee, lambda{|e|{:conditions => ["employee_id = ?",e]}}

@@ -19,7 +19,7 @@
           <td class="head2"><%= att.timeout%></td>
           <td class="numeric head3"><%= link_to(t('button.edit'),edit_employee_attendance_path(@employee,att)) %></td>
         <% else %>
-          <% form_for([@employee,att]) do |f| %>
+          <%= form_for([@employee,att]) do |f| %>
           <tr>
             <td class="head1"><%= att.attendance_date.to_s(:date_and_month) %></td>
             <td class="head2"><%= f.select(:attendance_type_id, AttendanceType.collection,{:include_blank=>true}) %></td>

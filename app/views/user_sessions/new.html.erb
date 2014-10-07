@@ -1,4 +1,3 @@
-<%= puts "anurag"%>
 <% content_for(:page_header) do %>
   <h2>Log in to your account</h2>
 <% end %>
@@ -7,7 +6,6 @@
     <%= company_icon @company,:medium %>
   </div>
 <%end%>
-<% puts "hello"%>
 <%= form_for @user_session, :url => user_session_path(:company => @company) do |f| %>
   <dl class="form">
     <dt>Username</dt>

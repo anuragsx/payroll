@@ -5,7 +5,7 @@
   <ul class="form">
     <%= f.labelled_collection_select t('esi.type'), :esi_type_id,EsiType.all,
       :id, :name,{:prompt => true} %>
-    <%= f.labelled_text_field t('esi.number'), :esi_number %>
+    <%= f.text_field t('esi.number'), :esi_number %>
   </ul>
   <p class="submit">
     <%= f.submit t('button.save'), :class=>"btn" %> or

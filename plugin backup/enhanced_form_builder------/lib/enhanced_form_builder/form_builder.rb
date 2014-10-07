@@ -63,7 +63,7 @@ module EnhancedFormBuilder
     # you can also specify custom attributes for the label using :label in the option
     # hash.  Likewise for :wrapper.
     # 
-    #  f.labelled_text_field 'Email', :email, :class => 'boo', :label => { :class => 'thing' }
+    #  f.text_field 'Email', :email, :class => 'boo', :label => { :class => 'thing' }
     #
     # Will give you:
     #

@@ -22,11 +22,11 @@
   </tbody>
 </table>
 
-<% form_for(@company.company_grades.build) do |f| %>
+<%= form_for(@company.company_grades.build) do |f| %>
   <%= display_error_messages('company_grade') %>
   <ul class="form">
-    <%= f.labelled_text_field("#{t('company_grade.grade')}", :name, :note => "#{t('company_grade.name')}") %>
-    <%= f.labelled_text_field("#{t('company_grade.pay_scale')}", :pay_scale, :note => "#{t('company_grade.package_amount')}") %>
+    <%= f.text_field("#{t('company_grade.grade')}", :name, :note => "#{t('company_grade.name')}") %>
+    <%= f.text_field("#{t('company_grade.pay_scale')}", :pay_scale, :note => "#{t('company_grade.package_amount')}") %>
   </ul>
   <p class="submit">
     <%= f.submit(t('button.create'), :class=>'btn') %> <%= "#{t('common.or')}" %>

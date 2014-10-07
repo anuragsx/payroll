@@ -1,5 +1,5 @@
 class CompanyLeave < ActiveRecord::Base
-  
+  attr_accessible :company
   LEAVE_ACCRUAL = [["Earn now consume next year",1],["Earn and spend as you go",2]]
   MONTH_DAY_CALC = [["Take total days of month (Default)",3],["Input will be given with Salary Sheet",1],["Fix for all Salary Sheet",2]]
   EARN_NOW_CONSUME_NEXT_YEAR = 1
@@ -8,7 +8,7 @@ class CompanyLeave < ActiveRecord::Base
   belongs_to :company
 
   validates :company_id, :month_day_calculation, :leave_accrual, :rate_of_leave, :presence => true
-  validates :leave_accrual, :rate_of_leave, :month_length, :greater_than => 0, :numericality => { :only_integer => true }
+  validates :leave_accrual, :rate_of_leave, :month_length, :numericality => { :only_integer => true, :greater_than => 0 }
   validates :month_day_calculation, :numericality => { :only_integer => true }
 
 
@@ -20,8 +20,20 @@ class CompanyLeave < ActiveRecord::Base
   after_create :create_opening_balance_on_all_employees
   after_update :plan_change_settlement
   
-  defaults :leave_accrual => 1, :rate_of_leave => 20, :month_day_calculation => 3, :month_length => 30,
-    :casual_leaves => 12 ,:sick_leaves => 12
+  #defaults :leave_accrual => 1, :rate_of_leave => 20, :month_day_calculation => 3, :month_length => 30,
+    #:casual_leaves => 12 ,:sick_leaves => 12
+
+  after_initialize :defaults
+
+  def defaults
+    self.leave_accrual = 1
+    self.rate_of_leave = 20
+    self.month_day_calculation = 3
+    self.month_length = 30
+    self.casual_leaves = 12
+    self.sick_leaves = 12
+  end
+
   def accrue_as_you_go?
     leave_accrual == AS_YOU_GO
   end

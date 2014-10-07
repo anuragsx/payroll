@@ -2,8 +2,8 @@
 
   <ul class="form">
     <%= display_error_messages('emi_override') %>
-    <%= f.labelled_text_field 'Amount',:amount %>
-    <%= f.labelled_text_field  'For Month of' ,:created_at, :class => 'datebalks' %>
+    <%= f.text_field 'Amount',:amount %>
+    <%= f.text_field  'For Month of' ,:created_at, :class => 'datebalks' %>
   </ul>
 
   <p class="submit">

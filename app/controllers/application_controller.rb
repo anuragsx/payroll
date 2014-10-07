@@ -3,11 +3,14 @@ class ApplicationController < ActionController::Base
 
 
   helper :all # include all helpers, all the time
+  helper ApplicationHelper
   include SubdomainCompany, Presenter
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  #protect_from_forgery # See ActionController::RequestForgeryProtection for details
   before_filter :check_account_status, :set_default_url_options_for_mailers, :set_locale
-  before_filter :login_or_oauth_required,:current_employee, :current_sheet
+  before_filter :current_employee, :current_sheet#, :login_or_oauth_required
   #after_filter  :check_email_activation
+  helper_method :current_user_session, :current_user
+
 
   protected
 
@@ -18,18 +21,11 @@ class ApplicationController < ActionController::Base
   end
 
   def check_account_status
-    puts "-------------------------check acc status-----------------"
     # TODO: this is where we could check to see if the account is active as well (paid, etc...)
-    puts account_subdomain.inspect
-    puts default_account_subdomain.inspect
     unless account_subdomain == default_account_subdomain
-      puts "---------------inside condition--------------"
-      puts account_subdomain.inspect
       if account_subdomain == "signup"
-        puts "------------inside if condition---------------"
         redirect_to new_package_account_url(Package.last.name) if params[:package_id].blank?
       else
-        puts "-------------inside else condition------------"
         redirect_to default_account_url and return if current_account.nil?
       end
     end
@@ -50,22 +46,90 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     user_session = UserSession.find
     # TODO REFACTOR IN FUTURE WITH A BETTER WAY
-    if user_session && user_session.user.try(:company).try(:subdomain) == 'admin'
-      @current_user_session = user_session
-    else
-      @current_user_session = current_account && current_account.user_sessions.find
+    unless user_session.nil?
+      if user_session && user_session.user.try(:company).try(:subdomain) == 'admin'
+        @current_user_session = user_session
+      else
+        @current_user_session = current_account && current_account.user_sessions.find.user
+      end
+      @current_user_session
     end
-    @current_user_session
   end
+=begin
+  def current_user_session
+    return @current_user_session if defined?(@current_user_session)
+    user = UserSession.find
+    unless user.nil?
+      sess = user.user
+      @current_user_session = user
+    end
+  end
+=end
+  def current_user
+    return @current_user if defined?(@current_user)
+    @current_user = current_user_session# && current_user_session.record
+  end
+
+  def require_no_user
+    logger.debug "ApplicationController::require_no_user"
+    if current_user
+      store_location
+      #flash[:notice] = "You must be logged out to access this page"
+      # redirect_to home_index_path
+      redirect_to home_path and return
+    end
+  end
+
+  def store_location
+    session[:return_to] = request.request_uri
+  end
+
+  def redirect_back_or_default(default)
+    redirect_to(session[:return_to] || default)
+    session[:return_to] = nil
+  end
+=begin
+  def require_user
+    logger.debug "ApplicationController::require_user"
+    unless current_user
+      store_location
+      flash[:notice] = "You must be logged in to access this page"
+      redirect_to new_user_session_url
+      return false
+    end
+  end
+=end
+  def require_user
+    unless current_user
+      store_location
+      if ["xml","json"].include?(params[:format])
+        request_http_basic_authentication
+      else
+        flash[:notice]="You must be logged in to access this page"
+        redirect_to new_user_session_url
+      end
+    end
+  end
+  alias_method :login_required,:require_user
+
+=begin
 
   def current_user
     return @current_user if !@current_user.nil?
     @current_user = current_user_session && current_user_session.user
   end
+
+
+  def current_user_session
+    return @current_user_session if defined?(@current_user_session)
+    @current_user_session = UserSession.find
+  end
+
 
   def require_user
     unless current_user
@@ -85,16 +149,13 @@ class ApplicationController < ActionController::Base
   end
 
   def require_no_user
-    puts "---------callback-------"
     if current_user
-      puts "---------callback---if current user---"
       store_location
       redirect_to home_path and return
     end
   end
 
   def store_location
-    puts "-----------store location----------"
     session[:return_to] = request.request_uri
   end
 
@@ -102,7 +163,7 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
-
+=end
   def destroy_session!
     session = UserSession.find
     session.destroy if session

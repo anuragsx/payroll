@@ -37,7 +37,7 @@ context "A form_for helper with a Dummy activerecord object" do
     
     form_for('dummy', @dummy) do |f|
       _erbout.concat f.text_field(:col1)
-      _erbout.concat f.labelled_text_field("Col1", :col1)
+      _erbout.concat f.text_field("Col1", :col1)
     end
 
     _erbout.should_not_be_empty
@@ -49,7 +49,7 @@ context "A form_for helper with a Dummy activerecord object" do
     _erbout = Spec::Rails::ResponseBody.new
     
     form_for('dummy', @dummy) do |f|
-      _erbout.concat f.labelled_text_field('Col Twoo!', :col2)
+      _erbout.concat f.text_field('Col Twoo!', :col2)
     end
     
     _erbout.should_have_tag :form #, :content => /<p>(.*)<\/p>/
@@ -71,7 +71,7 @@ context "A form_for helper with a Dummy activerecord object" do
     _erbout = Spec::Rails::ResponseBody.new
     
     form_for('dummy', @dummy) do |f|
-      _erbout.concat f.labelled_text_field('Col1', :col1)
+      _erbout.concat f.text_field('Col1', :col1)
     end
     
     _erbout.should_have_tag :p, :attributes => { :class => 'required' }
@@ -84,7 +84,7 @@ context "A form_for helper with a Dummy activerecord object" do
     @dummy.should_not_be_valid
     
     form_for('dummy', @dummy) do |f|
-      _erbout.concat f.labelled_text_field('Col1', :col1)
+      _erbout.concat f.text_field('Col1', :col1)
     end
     
     _erbout.should_have_tag :p, :attributes => { :class => 'error required' }
@@ -96,7 +96,7 @@ context "A form_for helper with a Dummy activerecord object" do
     
     form_for('dummy', @dummy) do |f|
       f.field_wrapper = Proc.new { |content, options| content_tag :test_bung, content }
-      _erbout.concat f.labelled_text_field('Col1', :col1)
+      _erbout.concat f.text_field('Col1', :col1)
     end
     
     _erbout.should_have_tag :test_bung

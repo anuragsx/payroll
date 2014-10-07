@@ -23,7 +23,11 @@ end
 gem 'jquery-rails'
 
 gem "oauth"
-gem "authlogic", "3.2.0"
+gem "authlogic", :git => "git://github.com/binarylogic/authlogic.git"#, :branch => "rails3"#, "3.2.0"
+#gem 'authlogic', github: 'binarylogic/authlogic', ref: 'e4b2990d6282f3f7b50249b4f639631aef68b939'
+gem 'bcrypt', '~> 3.1.7'
+gem 'scrypt', '1.2.1'
+gem 'rb-readline'
 gem 'prawn', '0.12.0'
 gem 'spreadsheet' , '0.6.4.1'
 #gem 'subdomain-fu', '1.0.0.beta2'
@@ -36,9 +40,14 @@ gem 'haml'
 gem "hominid"
 gem 'bootstrap-sass', '~> 3.2.0.1'
 gem "spreadsheet_on_rails"
-gem "oauth-plugin", "~> 0.4.0"
+#gem "oauth-plugin"#, "~> 0.4.0"
 gem "rdoc"
 gem "aasm"
+gem "delayed_job_active_record"
+gem "memoist"
+gem "rails3-generators"
+#gem "devise", "~> 2.2.0"
+#gem "devise-encryptable"
 #gem 'sass-rails', '>= 3.2'
 #gem 'actionmessenger'
 

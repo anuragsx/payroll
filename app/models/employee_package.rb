@@ -1,5 +1,5 @@
 class EmployeePackage < ActiveRecord::Base
-
+  attr_accessible :start_date
   END_DATE = Date.end_of_time
   belongs_to :employee
   belongs_to :company
@@ -9,7 +9,7 @@ class EmployeePackage < ActiveRecord::Base
   accepts_nested_attributes_for :employee_package_heads, :allow_destroy => true
   
   validates :basic, :start_date, :company, :presence => true
-  validates :basic, :greater_than => 0, :numericality => { :only_integer => true }
+  validates :basic, :numericality => {:only_integer => true, :greater_than => 0}
 
   attr_accessor :promoting,:suspending, :resuming
 

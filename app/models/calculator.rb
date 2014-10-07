@@ -2,7 +2,9 @@ class Calculator < ActiveRecord::Base
 
   #TODO added attr_accessible
   attr_accessible :name, :calculator_type
-  extend ActiveSupport::Memoizable
+  #extend ActiveSupport::Memoizable
+  require 'memoist'
+  extend Memoist
 
   observes :company_calculator, :before => :destroy, :invokes => :destroy_me
   observes :employee, :before => :destroy,  :invokes => :destroy_employee

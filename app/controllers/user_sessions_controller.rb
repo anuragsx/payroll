@@ -1,19 +1,17 @@
 class UserSessionsController < ApplicationController
 
-  skip_before_filter :login_or_oauth_required, :except => :destroy
-  before_filter :require_no_user, :only => :new
+  #skip_before_filter :login_or_oauth_required, :except => :destroy
+  before_filter :require_no_user, :only => [:new, :create]
 
   def index
-    puts "--------index---------------"
-    puts @company
     if @company
       redirect_to :action => "new"
     end
   end
 
   def new
-    puts "---------new--------------"
     @user_session = @company.user_sessions.new
+    #@user_session = UserSession.new
   end
 
   def create
@@ -26,8 +24,9 @@ class UserSessionsController < ApplicationController
       @user_session = @company.user_sessions.new(params[:user_session])
     end
     #@user_session = UserSession.new(params[:user_session]) # To by pass admin
-    #@user = find_user(params[:user_session][:login])
-    if @user_session.save
+    #@user = find_user(@user_session.login)
+    #exit
+    if  @user_session.save
       #if @user.activate?
         flash[:notice] = t('user_session.logged_in')
         redirect_back_or_default(home_path)
@@ -41,11 +40,37 @@ class UserSessionsController < ApplicationController
     end
   end
 
+=begin
+  def create
+    @user_session = UserSession.new(params[:user_session])
+    if @user_session.save
+      current_user = UserSession.find
+      puts current_user.inspect
+      puts "-----------------------------------------------"
+      #current_user.login_count = current_user.login_count + 1
+      #current_user.increment_login_count_for_current_memberships!
+      flash[:notice] = "Login successful!"
+      redirect_back_or_default(home_path)
+    else
+      render :action => :new
+    end
+  end
+=end
+
   def destroy
-    current_user_session.destroy   
+    current_user_session = UserSession.find
+    current_user_session.destroy
+    flash[:notice] = "Logout successful!"
     redirect_to root_url
   end
-  
+
+=begin
+  def destroy
+    current_user_session.destroy
+    flash[:notice] = "Logout successful!"
+    redirect_back_or_default new_user_session_url
+  end
+=end
   protected
 
   def find_user(login)

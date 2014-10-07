@@ -5,12 +5,12 @@
   
   <%= f.hidden_field(:commencement_date) %>
   
-  <% f.fields_for 'address', employee.address  do |af| %>
+  <%= f.fields_for 'address', employee.address  do |af| %>
     <%= af.hidden_field(:address_line1) %>
     <%= af.hidden_field(:city)%>
   <%end%>
 
-  <% f.fields_for 'employee_packages', employee_package do |pf| %>
+  <%= f.fields_for 'employee_packages', employee_package do |pf| %>
     <%= pf.text_field :designation%>
     <%= pf.text_field :basic%>
     <% employee_package.employee_package_heads.each do |eph| %>

@@ -1,5 +1,5 @@
 <%= render :partial=>'companies/page_header' %>
-<% form_for(@company,:url => company_calculator_path(@company),:method => :put) do |f| %>
+<%= form_for(@company,:url => company_calculator_path(@company),:method => :put) do |f| %>
   <%= display_error_messages('calculator') %>
   <%= render :partial=>'form',:locals=>{:f=>f} %>
   <p>

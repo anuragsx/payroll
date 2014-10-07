@@ -24,7 +24,7 @@
           <% end %>
         </td>
         <td class="head3">
-          <% form_for(v) do |f| %>
+          <%= form_for(v) do |f| %>
             <%= f.text_field(:receipt_number) %>
             <%= f.submit("Update Receipt Number")  %>
           <% end unless v.new_record? %>

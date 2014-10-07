@@ -1,8 +1,23 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  #devise :database_authenticatable, :registerable,
+         #:recoverable, :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  #attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  attr_accessible :login, :email, :password, :password_confirmation, :address_attributes
+
   acts_as_authentic do |c|
     c.validations_scope = :company_id
     c.disable_perishable_token_maintenance = true # for direct activation
+    c.login_field = 'login'
+    c.maintain_sessions = true
+    #c.crypto_provider = Authlogic::CryptoProviders::BCrypt
     #c.validate_email_field = false
+    #c.my_config_option = :login
   end
   
   attr_accessor :terms_of_service
@@ -29,7 +44,7 @@ class User < ActiveRecord::Base
 
   def add_user_to_mailchimp
     if self.activate_changed? && self.activate_was != true
-      self.send_later(:add_user_to_mailchimp_list) if Rails.env.production?
+      self.add_user_to_mailchimp_list if Rails.env.production?
     end
   end
 
@@ -39,14 +54,15 @@ class User < ActiveRecord::Base
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    UserMailer.deliver_password_reset_instructions(self)
+    UserMailer.password_reset_instructions(self).deliver
   end
 
   def deliver_email_verification_instructions!
     reset_perishable_token!
-    UserMailer.send_later(:deliver_email_verification_instructions,self)
-    self.send_later(:send_signup_sms)
-    AdminMailer.send_later(:deliver_signup_information_to_admin,self.company) if Rails.env.production?
+    #UserMailer.send_later(:deliver_email_verification_instructions,self) #TODO removed delayed job
+    UserMailer.email_verification_instructions(self).deliver
+    #self.send_later(:send_signup_sms) #TODO need to fix action messanger.
+    AdminMailer.signup_information_to_admin(self.company).deliver if Rails.env.production?
   end
 
   def send_signup_sms

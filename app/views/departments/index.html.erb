@@ -22,10 +22,10 @@
   </tbody>
 </table>
 
-<% form_for(@company.departments.build) do |f| %>
+<%= form_for(@company.departments.build) do |f| %>
   <%= display_error_messages('department') %>
   <ul class="form">
-    <%= f.labelled_text_field(t('department.name'), :name, :note => "#{t('department.create_new_department')}") %>
+    <%= f.text_field(t('department.name'), :name, :note => "#{t('department.create_new_department')}") %>
   </ul>
   <p class="submit">
     <%= f.submit(t('button.create'), :class=>'btn') %> <%= "#{t('common.or')}" %>

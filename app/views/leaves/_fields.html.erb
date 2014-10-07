@@ -1,16 +1,16 @@
 <td class="head2"><%= f.text_field :present, :size => 5 %></td>
 <td class="head2"><%= f.text_field :absent, :size => 5 %></td>
-<% f.fields_for :casual_leave do |c| %>
+<%= f.fields_for :casual_leave do |c| %>
   <td class="head2"><%= c.text_field :leaves, :size => 5 %></td>
   <%= c.hidden_field :leave_type, :size => 5 %>
   <%= c.hidden_field :employee_id, :size => 5 %>
 <%end%>
-<% f.fields_for :privilege_leave do |c| %>
+<%= f.fields_for :privilege_leave do |c| %>
   <td class="head2"><%= c.text_field :leaves, :size => 5 %></td>
   <%= c.hidden_field :leave_type, :size => 5 %>
   <%= c.hidden_field :employee_id, :size => 5 %>
 <%end%>
-<% f.fields_for :sick_leave do |c| %>
+<%= f.fields_for :sick_leave do |c| %>
   <td class="head2"><%= c.text_field :leaves, :size => 5 %></td>
   <%= c.hidden_field :leave_type, :size => 5 %>
   <%= c.hidden_field :employee_id, :size => 5 %>

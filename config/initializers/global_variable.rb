@@ -8,6 +8,7 @@ TLD_LENGTH = 1 if Rails.env == "production"
 TLD_LENGTH = 0 if Rails.env == "test"
 FINANCIAL_YEAR_START = 4
 COUNTRY = 'INDIA'
+STATE = ["Rajasthan", "Delhi"]
 CONFIRM_DELETE = "Are you sure?\nThis can not be undone!"
 DEFAULT_INSURANCE_COMPANY = "Life Insurance Corporation"
 OAUTH_10_SUPPORT = true
@@ -35,7 +36,7 @@ EDUCATION_CESS = 0.03
 INDIAN_METROS = ['New Delhi','Delhi','Mumbai','Bombay','Calcutta','Kolkata','Kokatta','Madras','Chennai'].map(&:upcase)
 CONVEYANCE_THRESHOLD = 800
 SMS_ENABLED = true && File.exists?("#{Rails.root}/config/messenger.yml")
-MAILCHIMP_LIST = "Salaree.com Signups"
+MAILCHIMP_LIST = "Test Signups"
 
 #TODO
 raw_config = File.read("/home/anurag/projects/payrolls/config/app_config.yml")
@@ -64,13 +65,14 @@ require 'subdomain_company'
 require 'num_to_words'
 require 'short_random'
 require 'prawn/security'
-require 'oauth/controllers/provider_controller'
-MAILER_FROM_ADDRESS = "Friends at Salaree.com <chimps@salaree.com>"
-ADMIN_MAILER_FROM_ADDRESS = %W(no-reply@risingsuntech.net)
-SITE_NAME = "Salaree.com"
-RECIPIENTS = ["arun.agrawal@risingsuntech.net","aditya.sanghi@risingsunbilling.com"]
-MAILER_SUBJECT_PREFIX = "salaree"
-DOMAIN = "salaree.com"
+#require 'oauth/controllers/provider_controller'
+MAILER_FROM_ADDRESS = "Friends at test.com"
+ADMIN_MAILER_FROM_ADDRESS = %W(no-reply@test.com)
+SITE_NAME = "Payroll.com"
+RECIPIENTS = ["anuraag.jpr@gmail.com"]
+MAILER_SUBJECT_PREFIX = "payroll"
+DOMAIN = "payroll.com"
+=begin
 ActionMailer::Base.smtp_settings = {
   :address => "smtp.1and1.com",
   :port => 25,
@@ -79,6 +81,17 @@ ActionMailer::Base.smtp_settings = {
   :user_name => "no-reply@risingsuntech.net",
   :password => "risingsun.noreply"
 }
+=end
+
+ActionMailer::Base.smtp_settings = {
+    :address => "smtp.1and1.com",
+    :port => 25,
+    :domain => "",
+    :authentication => :plain,
+    :user_name => "",
+    :password => ""
+}
+
 
 Date.fiscal_zone = :india
 Time.zone = "Mumbai"
@@ -139,4 +152,9 @@ class Date
       block = block + 4
     end
   end
+
+  def logged_in?
+
+  end
+
 end

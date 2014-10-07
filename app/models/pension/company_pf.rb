@@ -1,4 +1,5 @@
 class CompanyPf < ActiveRecord::Base
+  attr_accessible :company
   belongs_to :company
   belongs_to :pf_type
   has_many :employee_pensions, :dependent => :destroy

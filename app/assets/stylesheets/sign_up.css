@@ -263,7 +263,7 @@ ul.form li label.main {
   color: #003366;
 }
 ul.form li.error {
-  background: #ffffcc;
+    background: none repeat scroll 0 0 #FFFFCC;
 }
 ul.form li.error label.main {
   color: #990000;

@@ -1,5 +1,7 @@
 class Address < ActiveRecord::Base
 
+  attr_accessible :address_line1, :address_line2, :address_line3, :city, :pincode, :phone_number, :state, :mobile_number
+
   belongs_to :addressable, :polymorphic => true
   before_validation :check_mobile_format
 

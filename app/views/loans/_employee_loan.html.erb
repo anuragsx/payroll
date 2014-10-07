@@ -2,7 +2,7 @@
   <tr>
     <td><%= f.object.employee.name %><%= f.hidden_field :employee_id %></td>
     <td><%= f.text_field :loan_amount %></td>
-    <% f.fields_for :effective_loan_emis do |emi| %>
+    <%= f.fields_for :effective_loan_emis do |emi| %>
       <td><%= emi.text_field(:amount) %></td>
     <% end %>
     <% unless employee_loan.new_record? %>

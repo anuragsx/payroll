@@ -1,5 +1,7 @@
 class CompanyAllowanceHead < ActiveRecord::Base
 
+  attr_accessible :company, :salary_head, :position
+
   belongs_to :company
   belongs_to :salary_head
   has_many :salary_slip_charges, :as => :reference

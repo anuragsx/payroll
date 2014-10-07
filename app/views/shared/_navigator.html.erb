@@ -9,7 +9,7 @@
       <li class="<%= link_active?(params[:controller] == "feedbacks") %>"><%= link_to(t('header.feedback'),new_feedback_path ) %></li>
       <li class="<%= link_active?(params[:controller] == "users") %>"><%= link_to(t('header.users'),users_path) %></li>
       <li class="<%= link_active?(setting_controllers.include?(params[:controller])) %>"><%= link_to(t('header.settings'), company_path(current_account)) %></li>
-      <li class="<%= link_active?(params[:controller] == "users" && params[:action] == "edit") %>"><%= link_to(t('header.account'),edit_user_path(@current_user)) %></li>
+      <li class="<%= link_active?(params[:controller] == "users" && params[:action] == "edit") %>"><%= link_to(t('header.account'),edit_user_path(current_user)) %></li>
 <!--      <li><a href="#" class="help" onclick="new Effect.toggle('help-panel', 'blind', {duration: 0.4}); return false;">Help</a></li> -->
     </ul>
     <ul class="main-nav">

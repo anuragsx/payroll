@@ -1,6 +1,6 @@
 <div class="group">
 	<h4>Search Employees</h4>
-<% form_for(@search, :method=>:get) do |f|%>
+<%= form_for(@search, :method=>:get) do |f|%>
     <%= f.hidden_field :status_is %>
     <div class="col">
     	<p><%= t('employees.name') %>:<br><%= f.text_field :name_like_any %></p>

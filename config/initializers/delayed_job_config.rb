@@ -1,8 +1,21 @@
-Delayed::Job.destroy_failed_jobs = false
-silence_warnings do
-  Delayed::Job.const_set("MAX_ATTEMPTS", 3)
-  Delayed::Job.const_set("MAX_RUN_TIME", 5.minutes)
+=begin
+
+Delayed::Worker.destroy_failed_jobs = false
+#silence_warnings do
+  #Delayed::Job.const_set("MAX_ATTEMPTS", 3)
+  #Delayed::Job.const_set("MAX_RUN_TIME", 5.minutes)
+#end
+
+
+def max_attempts
+  3
 end
+
+
+def max_run_time
+  5.minutes
+end
+
 module Delayed
   class Job < ActiveRecord::Base
 
@@ -32,3 +45,5 @@ module Delayed
 
   end
 end
+
+=end

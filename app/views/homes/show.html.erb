@@ -1,6 +1,6 @@
 <% content_for(:page_header) do  %>
-  <h2 style="margin:0;"><%=h "Welcome to Salaree.com" %></h2>
-  <p>Salaree simplifies your payroll and generate all the reports you need. So let's start a hassle free payroll. </p>
+  <h2 style="margin:0;"><%=h "Welcome to SurePay" %></h2>
+  <p>SurePay simplifies your payroll and generate all the reports you need. So let's start a hassle free payroll. </p>
 <% end %>
 <div class="home-video">
   <object classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000'
@@ -16,16 +16,16 @@
     </embed>
   </object>
 </div>
-  
-  <h2>Steps to Get Started Using Salaree.com</h2>
-  
+
+  <h2>Steps to Get Started Using SurePay.com</h2>
+
   <h3>1. System Setup</h3>
 <p>First of all you need to configure your <%= link_to('calculators',company_calculators_path)%>.
-  Like you have to select one of the Leave Calculators. This tells us how you want <i>"Salaree"</i>  to calculate
+  Like you have to select one of the Leave Calculators. This tells us how you want <i>"SurePay"</i>  to calculate
   leaves for your payrolls. Similarly there are other calculators that gives you freedom to customize your
-  <i>"Salaree"</i>. Select the calculator modules that you want to add up in your payroll.</p>
-  
-<p>Next you need to configure <i>"Salaree"</i> with specific about your <%= link_to('company', company_path(@company)) %>
+  <i>"SurePay"</i>. Select the calculator modules that you want to add up in your payroll.</p>
+
+<p>Next you need to configure <i>"SurePay"</i> with specific about your <%= link_to('company', company_path(@company)) %>
   information like company address, phone number, <%= link_to('pf type',company_pf_path) %>, pf number,
   <%= link_to('esi type',company_esi_path) %>, esi number and <%= link_to('company leaves',company_leave_path) %>.</p>
 
@@ -36,12 +36,12 @@
 
 
 <h3>3. Add/Update Employees</h3>
-<p>Next you need to add <%= link_to('employees',employees_path) %> to your <i>"Salaree"</i> to run payrolls.</p>
+<p>Next you need to add <%= link_to('employees',employees_path) %> to your <i>"SurePay"</i> to run payrolls.</p>
 
 
 <h3>4. Creating Users</h3>
-<p>You can add up as many <%= link_to('users', users_path) %> to your <i>"Salaree"</i> as you wish to. Only if you
-  want others to access your <i>"Salaree"</i>. You can also change <%= link_to("your account's",edit_user_path(@current_user)) %>
+<p>You can add up as many <%= link_to('users', users_path) %> to your <i>"SurePay"</i> as you wish to. Only if you
+  want others to access your <i>"SurePay"</i>. You can also change <%#= link_to("your account's",edit_user_path(@current_user)) %>
   setting.</p>
 
 

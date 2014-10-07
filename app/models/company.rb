@@ -1,8 +1,9 @@
 class Company < ActiveRecord::Base
+  require 'memoist'
+  extend Memoist
+  #extend ActiveSupport::Memoizable
 
-  extend ActiveSupport::Memoizable
-
-  attr_accessible :name, :subdomain, :package_id
+  attr_accessible :name, :subdomain, :package_id, :owner_attributes
   
   authenticates_many :user_sessions
   has_one :owner, :class_name => 'User',:dependent => :destroy
@@ -83,6 +84,8 @@ class Company < ActiveRecord::Base
   end
 
   def package_calculator
+    puts "-----------------------------"
+    puts calculators.inspect
     calculators.detect{|c|c.is_package?}
   end
 

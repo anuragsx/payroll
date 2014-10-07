@@ -7,7 +7,7 @@
     <% end %>
     <title><%= h(yield(:title) || "salaree.com  -- Your business deserves painless payroll") %></title>
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
-    <%= stylesheet_link_tag 'ui.datepicker' ,'ui.theme','jquery-ui-1.7.2.custom','pushup','screen','overrides' %>
+    <%= stylesheet_link_tag 'ui.datepicker' ,'ui.theme','jquery-ui-1.7.2.custom','pushup','screen','overrides', 'formtastic', 'formtastic_changes' %>
     <%= javascript_include_tag :defaults,'jquery-1.3.2.min','jquery.highlight','jquery.single-ddm.pack','jquery-ui-personalized-1.6rc4.min',
       'jquery-ui-1.7.2.custom.min', 'jquery.hoverIntent.minified','jquery.pushup',
       'jquery.accordion-1.2.2','jquery.qtip-1.0.0-rc3.min.js','swfobject.js','jquery.hotkeys-0.7.9.js' %>
@@ -19,14 +19,14 @@
     <![endif]-->
     <%= yield(:head) %>
     <link rel="shortcut icon" href="/favicon.ico" />
-    <% javascript_tag do%>
-      var shortcuts = <%= shortcut_links.to_json %>;
-    <%end%>
+    <%# javascript_tag do%>
+      var shortcuts = <%#= shortcut_links.to_json %>;
+    <%#end%>
   </head>
   <body>
     <% if @company %>
       <%= render :partial => "shared/header"  %>
-      <%= render :partial => "shared/help" %>
+      <%#= render :partial => "shared/help" %>
       <div id="help-panel" style="display:none;">
         <div class="help-close"><a href="#" onclick="new Effect.toggle('help-panel', 'blind', {duration: 0.4}); return false;">Close Help Panel</a></div>
         <div class="help-content">

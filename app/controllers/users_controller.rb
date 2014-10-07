@@ -31,6 +31,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = @current_user
+  end
+
   def update
     @user = @company.users.find(params[:id])
     if @user.update_attributes(params[:user])

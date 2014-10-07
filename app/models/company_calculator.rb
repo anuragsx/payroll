@@ -1,5 +1,7 @@
 class CompanyCalculator < ActiveRecord::Base
 
+  attr_accessible :company, :calculator, :position, :company_id, :calculator_id
+
   belongs_to :company
   belongs_to :calculator
 
